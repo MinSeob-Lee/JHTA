@@ -15,7 +15,7 @@ public class StarDemo3 {
 		
 		for (int i = 1; i <= 5; i++) {
 			// 공백출력
-			for (int j = 1; j <= 10 - (i * 2); j++) {
+			for (int j = 1; j <= 10 - i * 2; j++) {
 				System.out.print(" ");
 			}
 			// 별출력

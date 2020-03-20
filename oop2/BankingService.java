@@ -41,7 +41,7 @@ public class BankingService {
 	void addNewBanking(String name, int pwd, long money) {
 		Banking banking = new Banking();
 		banking.name = name;
-		banking.no = "" + (int)(Math.random() * 100000 + 10000);
+		banking.no = "" + (int) (Math.random() * 100000 + 10000);
 		banking.password = pwd;
 		banking.balance = money;
 		banking.period = 24; // 계약기간
@@ -52,21 +52,58 @@ public class BankingService {
 
 	// 계좌번호에 해당하는 계좌정보를 조회(출력)하는 서비스
 	void printBankingByNo(String bankingNo) {
-
+		Banking foundBanking = findBankingByNo(bankingNo);
+		if (foundBanking != null) {
+			foundBanking.display();
+		} else {
+			System.out.println("일치하는 계좌가 존재하지 않습니다.");
+		}
 	}
 
 	// 계좌번호, 입금액을 전달받아서 해당 계좌에 입금하는 서비스
 	void depositeBanking(String bankingNo, long money) {
-
+		Banking foundBanking = findBankingByNo(bankingNo);
+		if (foundBanking != null) {
+			foundBanking.deposit(money);
+		} else {
+			System.out.println("일치하는 계좌가 존재하지 않습니다.");
+		}
 	}
 
 	// 계좌번호, 비밀번호, 출금액을 전달받아서 출금액만큼 반환하는 서비스
 	long withdrawFromBanking(String bankingNo, int pwd, long money) {
-		return 0L;
+		long result = 0L;
+		Banking foundBanking = findBankingByNo(bankingNo);
+		if (foundBanking != null) {
+			result = foundBanking.withdraw(money, pwd);
+		} else {
+			System.out.println("일치하는 계좌가 존재하지 않습니다.");
+		}
+		return result;
 	}
 
 	// 계좌번호, 비밀번호를 전달받아서 계좌를 해지하고, 해지금액 전체를 반환하는 서비스
 	long closeBanking(String bankingNo, int pwd) {
-		return 0L;
+		long result = 0L;
+		Banking foundBanking = findBankingByNo(bankingNo);
+		if (foundBanking != null) {
+			result = foundBanking.close(pwd);
+		} else {
+			System.out.println("일치하는 계좌가 존재하지 않습니다.");
+		}
+		return result;
+	}
+
+	// 서비스에서 자주 사용되는 계좌번호에 해당하는 계좌정보를 찾아서 반환하는 기능
+	Banking findBankingByNo(String bankingNo) {
+		Banking result = null;
+		for (int i = 0; i < savePosition; i++) {
+			Banking banking = db[i];
+			if (bankingNo.equals(banking.no)) {
+				result = banking;
+				break;
+			}
+		}
+		return result;
 	}
 }

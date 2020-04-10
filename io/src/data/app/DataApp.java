@@ -51,13 +51,21 @@ public class DataApp {
 					
 					service.printDataStatBySido(sido);
 				} else if (statMenuNo == 2) {
+					System.out.println("[월별 통계]");
 					
+					service.printDataStatByMonth();
 				} else if (statMenuNo == 3) {
+					System.out.println("[요일별 통계]");
 					
+					service.printDataStatByDayOfWeek();
 				} else if (statMenuNo == 4) {
+					System.out.println("[위반내용별 통계]");
 					
+					service.printDataStatByViolation();
 				} else if (statMenuNo == 5) {
+					System.out.println("[요약정보 보기]");
 					
+					service.printDataStat();
 				}
 			} else if (menuNo == 0) {
 				System.out.println("프로그램을 종료합니다.");

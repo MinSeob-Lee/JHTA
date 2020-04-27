@@ -5,6 +5,7 @@ import java.util.List;
 import com.sample.bookstore.service.BookstoreService;
 import com.sample.bookstore.util.KeyboardUtil;
 import com.sample.bookstore.vo.Book;
+import com.sample.bookstore.vo.Order;
 import com.sample.bookstore.vo.User;
 
 public class Bookstore {
@@ -75,9 +76,9 @@ public class Bookstore {
 
 				System.out.print("조회할 도서 번호를 입력하세요 : ");
 				int bookNo = KeyboardUtil.nextInt();
-				
+
 				Book book = service.도서상세정보(bookNo);
-				if(book == null) {
+				if (book == null) {
 					System.out.println("!!! 유효한 도서 정보가 아닙니다.");
 				} else {
 					System.out.println("-----------------------------------------------");
@@ -97,26 +98,60 @@ public class Bookstore {
 
 				System.out.print("주문할 책 번호를 입력하세요 : ");
 				int bookNo = KeyboardUtil.nextInt();
-				
+
 				System.out.print("주문수량을 입력하세요 : ");
 				int amount = KeyboardUtil.nextInt();
-				
+
 				System.out.print("주문자 아이디를 입력하세요 : ");
 				String userId = KeyboardUtil.nextString();
-				
+
 				boolean isSuccess = service.주문하기(userId, bookNo, amount);
-				if(isSuccess) {
+				if (isSuccess) {
 					System.out.println("### 주문이 완료되었습니다.");
 				} else {
 					System.out.println("!!! 주문처리 중 오류가 발생하였습니다.");
 				}
-				
+
 			} else if (menuNo == 5) {
 				System.out.println("[내 주문 전부 보기]");
 
-			} else if (menuNo == 6) {
-				System.out.println("[주문 정보 보기]");
+				System.out.print("사용자 아이디를 입력하세요 : ");
+				String userId = KeyboardUtil.nextString();
 
+				List<Order> myOrders = service.내주문조회(userId);
+				if (myOrders.isEmpty()) {
+					System.out.println("!!! 주문내역이 존재하지 않습니다.");
+				} else {
+					System.out.println("-----------------------------------------------");
+					System.out.println("주문번호\t도서제목\t가격\t구매수량");
+					for (Order order : myOrders) {
+						System.out.print(order.getNo() + "\t");
+						System.out.print(order.getBook().getTitle() + "\t");
+						System.out.print(order.getPrice() + "\t");
+						System.out.println(order.getAmount());
+					}
+					System.out.println("-----------------------------------------------");
+				}
+			} else if (menuNo == 6) {
+				System.out.println("[주문정보 상세보기]");
+
+				System.out.print("주문번호를 입력하세요 : ");
+				int orderNo = KeyboardUtil.nextInt();
+				
+				Order order = service.주문상세정보(orderNo);
+				if(order == null) {
+					System.out.println("!!! 주문번호에 해당하는 주문정보가 존재하지 않습니다.");
+				} else {
+					System.out.println("-----------------------------------------------");
+					System.out.println("주문번호 : " + order.getNo());
+					System.out.println("사용자명 : " + order.getUser().getName());
+					System.out.println("제    목 : " + order.getBook().getTitle());
+					System.out.println("가    격 : " + order.getBook().getPrice());
+					System.out.println("구매가격 : " + order.getPrice());
+					System.out.println("구매수량: " + order.getAmount());
+					System.out.println("주문날짜 : " + order.getRegisterDate());
+					System.out.println("-----------------------------------------------");
+				}
 			} else if (menuNo == 0) {
 				KeyboardUtil.close();
 				System.out.println("### 프로그램을 종료합니다.");

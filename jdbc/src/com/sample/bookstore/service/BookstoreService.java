@@ -3,6 +3,8 @@ package com.sample.bookstore.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.sample.bookstore.dao.BookDAO;
 import com.sample.bookstore.dao.OrderDAO;
 import com.sample.bookstore.dao.UserDAO;
@@ -32,6 +34,10 @@ public class BookstoreService {
 		if(savedUser != null) {
 			return false;
 		}
+		// 비밀번호 암호화하기
+		String md5Password = DigestUtils.md5Hex(user.getPassword());
+		user.setPassword(md5Password);
+		
 		userDao.addUser(user);
 		return true;
 	}
@@ -98,11 +104,23 @@ public class BookstoreService {
 		return true;
 	}
 	
-	public List<Order> 내주문조회(String userId) {
-		return null;
+	/**
+	 * 지정된 사용자아이디의 모든 주문내역을 반환한다.
+	 * @param userId 주문내역을 조회할 사용자 아이디
+	 * @return 주문내역정보, 주문내역이 없는 경우 empty List가 반환된다.
+	 */
+	public List<Order> 내주문조회(String userId) throws Exception {
+		
+		return orderDao.getOrdersByUserId(userId);
 	}
 	
-	public Order 주문상세정보(int orderNo) {
-		return null;
+	/**
+	 * 지정된 주문번호에 해당하는 주문정보를 반환한다.
+	 * @param orderNo 주문정보를 조회할 주문번호
+	 * @return 주문정보 상세내역, 주문번호가 틀린 경우 null 이 반환된다.
+	 */
+	public Order 주문상세정보(int orderNo) throws Exception {
+		
+		return orderDao.getOrderByNo(orderNo);
 	}
 }

@@ -7,6 +7,8 @@ IS
     v_order_price sample_books.book_discount_price%type;
     v_stock       sample_books.book_stock%type;
     
+    BOOK_APPLICATION_ERROR EXCEPTION;
+    
 BEGIN
 
     SELECT BOOK_DISCOUNT_PRICE, BOOK_STOCK
@@ -22,5 +24,17 @@ BEGIN
     UPDATE SAMPLE_BOOKs SET BOOK_STOCK = v_stock - i_order_amount
     WHERE BOOK_NO = i_book_no;
     
+    COMMIT;
+    
+    ELSE
+        -- 책의 재고가 주문량보다 부족한 경우 예외 발생
+        RAISE BOOK_APPLICATION_ERROR;
     END IF;
+    
+    -- 예외철
+    EXCEPTION
+    -- 사용자 정의가 예외가 발생했다면 오라클의 RAISE_APPLICATION_ERROR(에러코드, 에러메시지)를 실행시킨다.
+        WHEN BOOK_APPLICATION_ERROR THEN
+        -- 오류코드는 -20000, -29999 사이의 값을 사용한다.
+            RAISE_APPLICATION_ERROR(-100000, '재고가 부족합니다.');
 END;

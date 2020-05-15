@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <div style="width: 600px; margin: 10px auto;">
+            <div>
+                <!-- header -->
+            <h1>과정등록 폼</h1>
+        </div>
+        <div>
+            <!-- body -->
+            <div style="background-color: lightblue; padding: 16px; border: 1px solid black">
+               <div>
+                <div><label>과목명</label></div>
+                <div>
+                    <select name="course" style="width: 100%; height: 30px">
+                        <option value=""> -- 선택하세요 -- </option>
+                        <option value="computer">컴퓨터개론</option>
+                        <option value="java">자바의정석</option>
+                        <option value="python">쉽게배우는파이썬</option>
+                        <option value="db">데이터베이스</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div><label>담당교수</label></div>
+                <div>
+                    <select name="prof" style="width: 100%; height: 30px">
+                        <option value="">-- 선택하세요 --</option>
+                        <option value="L">이교수</option>
+                        <option value="K">김교수</option>
+                        <option value="P">박교수</option>
+                        <option value="C">최교수</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div><label>과정명</label></div>
+                <div>
+                    <input type="text" name="course" style="width: 100%; height: 30px;">
+                </div>
+            </div>
+            <div>
+                <div><label>정원</label></div>
+                <div>
+                    <input type="text" name="quota" placeholder="30" style="width: 100%; height: 30px;">
+                </div>
+            </div>
+            <div>
+                <div style="text-align: right">
+                    <button type="reset">취소</button>
+                    <button type="submit">등록</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <!-- footer -->
+            <p>
+                중앙HTA
+            </p>
+        </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

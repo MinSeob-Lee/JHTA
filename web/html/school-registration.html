@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+        }
+        th {
+            background-color: lightpink;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 600px; margin: 10px auto;">
+        <div>
+            <!-- header -->
+            <h1>수강신청 현황 조회</h1>
+        </div>
+        <div style="padding: 16px; border: 1px solid gray">
+            <!-- body -->
+            <form>
+                <div>
+                    <div>
+                    <label>학기</label>
+                    <select name="year" style="height: 20px;">
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2016">2017</option>
+                        <option value="2017">2016</option>
+                    </select>
+                    <select name="semester" style="height: 20px;">
+                        <option value="1">1학기</option>
+                        <option value="2">2학기</option>
+                        <option value="3">계절학기</option>
+                    </select>
+                    <button type="submit" style="height: 20px;">조회</button>
+                    </div>
+                    <div>
+                        <table>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>과정번호</th>
+                                <th>과정명</th>
+                                <th>담당교수</th>
+                                <th>취소여부</th>
+                                <th>수료여부</th>
+                                <th>성적</th>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <button type="reset">전체취소</button>
+                        <button type="submit">선택취소</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div>
+            <!-- footer -->
+            <p>
+                중앙HTA학교
+            </p>
+        </div>
+    </div>
+</body>
+</html>

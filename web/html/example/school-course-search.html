@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+        }
+        th {
+            background-color: lightgreen;
+        }
+        table, th, td {
+            border: 1px solid gray;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+        <div>
+            <div>
+               <!-- header -->
+                <h1>과정검색</h1>
+            </div>
+        <div style="padding: 16px; border: 1px solid black;">
+            <div>
+                <!-- body -->
+                <form>
+                    <div>
+                        <select name="dept" style="height: 30px;">
+                            <option value="O">학과</option>
+                            <option value="P">담당교수</option>
+                            <option value="C">과정명</option>
+                        </select>
+                        <input type="text" name="dept" style="height: 30px;">
+                        <button type="submit" style="height: 30px;">조회</button>
+                    </div>
+                    <div>
+                        <table>
+                           <tr>
+                            <th>과정번호</th>
+                            <th>과정명</th>
+                            <th>담당교수</th>
+                            <th>정원</th>
+                            <th>신청자수</th>
+                            <th>마감여부</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <p>수강신청 가능과정 : <span style="color: red; padding-right: 30px;">5개</span> 마감된 과정 : <span style="color: red">1개</span></p>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <!-- footer -->
+                <p>
+                    중앙HTA학교
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

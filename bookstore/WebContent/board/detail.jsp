@@ -1,3 +1,7 @@
+<%@page import="com.bookstore.util.NumberUtil"%>
+<%@page import="java.util.List"%>
+<%@page import="com.bookstore.vo.Reply"%>
+<%@page import="com.bookstore.dao.ReplyDao"%>
 <%@page import="com.bookstore.util.StringUtil"%>
 <%@page import="com.bookstore.dto.BoardDto"%>
 <%@page import="com.bookstore.dao.BoardDao"%>
@@ -23,9 +27,12 @@
 		</div>
 		<div class="body">
 		<%
-			int no = Integer.parseInt(request.getParameter("no"));
+			int no = NumberUtil.stringToInt(request.getParameter("boardno"));
+		
 			BoardDao boardDao = new BoardDao();
 			BoardDto board = boardDao.getBoardByNo(no);
+			ReplyDao replyDao = new ReplyDao();
+			List<Reply> replys = replyDao.getReplysByBoardNo(no);
 		%>
 			<div>
 				<table class="table">
@@ -50,22 +57,61 @@
 					<td colspan="6"><%=StringUtil.strWithBr(board.getContent()) %></td>
 				</tr>
 				</table>
-			</div>
-			<div class="form-group">
-			<h3>댓글 작성</h3>
-				<table class="table">
-					<tr>
-						<td><input type="text" name="writer" placeholder="닉네임"/></td>		
-						<td><input type="password" name="password" maxlength="4" placeholder="비밀번호"/></td>
-					</tr>
-					<tr>
-						<td><textarea rows="6" name="content" placeholder="내용을 입력해주세요."></textarea></td>
-					</tr>
-				</table>
-			</div>
+				<hr>
 				<div class="text-right">
-					<button type="submit">등록</button>
+				<a href="modifyform.jsp?boardno=<%=no %>"><strong>[수정]</strong></a>
+				<a href="deleteform.jsp?boardno=<%=no %>"><strong>[삭제]</strong></a>
+				<a href="list.jsp"><strong>[목록으로 가기]</strong></a>
+			</div>
+				<div>
+					<p><strong>댓글을 확인하세요</strong></p>
+		<%
+			for (Reply reply : replys) {
+		%>
+					<table class="table">
+						<colgroup>
+							<col width="10%">
+							<col width="40%">
+							<col width="10%">
+							<col width="40%">
+						</colgroup>
+						<tr>
+							<th>작성자</th>
+							<td><%=reply.getWriter() %></td>
+							<th>등록일</th>
+							<td><%=reply.getRegisteredDate() %></td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td colspan="3">
+								<%=StringUtil.strWithBr(reply.getContent()) %>
+							</td>
+						</tr>
+						<hr>
+					</table>
+		<%
+			}
+		%>
 				</div>
+				<div style="width: 50%" class="well">
+				<h3>댓글 작성</h3>
+					<form method="post" action="registerreply.jsp">
+						<input type="hidden" name="boardno" value="<%=no %>">
+						<table class="table boardered">
+							<tr>
+								<td><input style= "width: 100%" type="text" name="writer" placeholder="닉네임"/></td>		
+								<td><input style= "width: 100%" type="password" name="password" maxlength="4" placeholder="비밀번호"/></td>
+							</tr>
+							<tr>
+								<td colspan="2"><textarea style="width: 100%" rows="6" name="content" placeholder="내용을 입력해주세요."></textarea></td>
+							</tr>
+						</table>
+						<div class="text-right">
+							<button type="submit">등록</button>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

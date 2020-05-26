@@ -41,8 +41,7 @@
 			<div>	
 		<%
 			String genre = request.getParameter("genre");
-			OrderDao orderDao = new OrderDao();
-			
+			OrderDao orderDao = new OrderDao();			
 		%>
 				<div>
 					<form>				

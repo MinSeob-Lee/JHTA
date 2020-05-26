@@ -8,10 +8,28 @@ public class BoardDto {
 	private String writer;
 	private String content;
 	private int hit;
+	private int password;
 	private String delYn;
 	private Date registeredDate;
+	private int no;
 	
 	public BoardDto() {}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public int getPassword() {
+		return password;
+	}
+
+	public void setPassword(int password) {
+		this.password = password;
+	}
 
 	public String getTitle() {
 		return title;

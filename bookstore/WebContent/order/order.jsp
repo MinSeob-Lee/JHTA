@@ -17,6 +17,7 @@
 	order.setAmount(amount);
 	order.setId(userId);
 	
+	
 	// OrderDao의 insertOrder(Order order) 실행하기
 	OrderDao orderDao = new OrderDao();
 	orderDao.insertOrder(order);

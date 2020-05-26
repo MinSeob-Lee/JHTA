@@ -57,4 +57,57 @@ public class OrderDao {
 		
 		return orders;
 	}
+	
+	public List<OrderDto> getAllOrders() throws SQLException {
+		List<OrderDto> orders = new ArrayList<OrderDto>();
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("order.getAllOrders"));
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			OrderDto order = new OrderDto();
+			order.setNo(rs.getInt("order_no"));
+			order.setUserName(rs.getString("user_name"));
+			order.setBookTitle(rs.getString("book_title"));
+			order.setPrice(rs.getInt("order_price"));
+			order.setAmount(rs.getInt("order_amount"));
+			order.setChargedPrice(rs.getInt("charge_price"));
+			order.setRegisteredDate(rs.getDate("order_registered_date"));
+			
+			orders.add(order);
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return orders;
+	}
+	
+	public List<OrderDto> getAllOrdersByGenre(String genre) throws SQLException {
+		List<OrderDto> orders = new ArrayList<OrderDto>();
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("order.getAllOrdersByGenre"));
+		pstmt.setString(1, genre);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			OrderDto order = new OrderDto();
+			order.setNo(rs.getInt("order_no"));
+			order.setUserName(rs.getString("user_name"));
+			order.setBookTitle(rs.getString("book_title"));
+			order.setPrice(rs.getInt("order_price"));
+			order.setAmount(rs.getInt("order_amount"));
+			order.setChargedPrice(rs.getInt("charge_price"));
+			order.setRegisteredDate(rs.getDate("order_registered_date"));
+			
+			orders.add(order);
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return orders;
+	}
 }

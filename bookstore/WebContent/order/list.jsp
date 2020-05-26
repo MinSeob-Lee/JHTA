@@ -45,6 +45,7 @@
 							<th>결제금액</th>
 							<th>주문일자</th>
 							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -65,6 +66,10 @@
 							<td><%=orderDto.getAmount() %></td>
 							<td><%=orderDto.getChargedPrice() %></td>
 							<td><%=orderDto.getRegisteredDate() %></td>
+			<%
+				
+			%>
+							<td><a href="../book/like.jsp?bookno=<%=orderDto.getBookNo() %>&userid=<%=user.getId()%>">추천하기</a></td>
 			<%
 				if (orderDto.getReviewNo() != -1) {
 			%>

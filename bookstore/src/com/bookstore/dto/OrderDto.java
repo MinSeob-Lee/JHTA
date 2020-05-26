@@ -5,6 +5,7 @@ import java.sql.Date;
 public class OrderDto {
 
 	private int no;
+	private String userName;
 	private int bookNo;
 	private String bookTitle;
 	private int price;
@@ -14,6 +15,14 @@ public class OrderDto {
 	private int reviewNo;
 	
 	public OrderDto() {}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public int getReviewNo() {
 		return reviewNo;

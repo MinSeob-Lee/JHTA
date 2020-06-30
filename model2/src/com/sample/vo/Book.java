@@ -15,6 +15,15 @@ public class Book {
 	
 	public Book() {}
 
+	public Book(int no, String title, String writer, int price, int stock) {
+		super();
+		this.no = no;
+		this.title = title;
+		this.writer = writer;
+		this.price = price;
+		this.stock = stock;
+	}
+	
 	public int getNo() {
 		return no;
 	}

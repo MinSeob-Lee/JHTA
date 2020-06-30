@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,32 +16,36 @@
 <div class="container">
 	<div class="row">
 		<div class="col-12">
-			<h1>EL의 비교연산자</h1>
+			<h1>out 태그</h1>
 		</div>
 	</div>
 	
 	<%
-		request.setAttribute("num1", 30);
-		request.setAttribute("num2", 15);
+		String text = "안녕하세요";
+		request.setAttribute("message", text);
 		
-		request.setAttribute("name", "홍길동");
+		String content = "";
+		content += "<script>";
+		content += " function 나쁜짓() {";
+		content += " alert('시스템 다 망가트릴꺼야!!!');";
+		content += "</script>";
+		content += "<button onclick='나쁜짓()'>클릭</button>";
+		request.setAttribute("content", content);
+		
+		String title = "<html> 하루에 끝내기";
+		request.setAttribute("bookTitle", title);
 	%>
 	
 	<div class="row">
 		<div class="col-12">
-			<h3>숫자값 비교</h3>
-			<p>비교하기 : ${num1 > num2 } ${num1 gt num2 }</p>
-			<p>비교하기 : ${num1 >= num2 } ${num1 ge num2 }</p>
-			<p>비교하기 : ${num1 < num2 } ${num1 lt num2 }</p>
-			<p>비교하기 : ${num1 <= num2 } ${num1 le num2 }</p>
-			<p>비교하기 : ${num1 == num2 } ${num1 eq num2 }</p>
-			<p>비교하기 : ${num1 != num2 } ${num1 ne num2 }</p>
-		</div>
-		
-		<div class="col-12">
-			<h3>문자열 비교</h3>
-			<p>비교하기 : ${name == '홍길동' } ${name eq '홍길동' }</p> 
-			<p>비교하기 : ${name != '홍길동' } ${name ne '홍길동' }</p> 
+			<h3>EL을 사용해서 속성값 표현하기</h3>
+			<p>${message }</p>
+			<p>${content }</p>
+			<p>${bookTitle }</p>
+			
+			<h3>out 태그를 사용해서 표현하기</h3>
+			<p><c:out value="${message }"></c:out></p>
+			<p><c:out value="${content }"></c:out></p>
 		</div>
 	</div>
 </div>

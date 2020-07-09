@@ -14,6 +14,7 @@
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<fmt:bundle basename="com.simple.resources.message">
 <div class="container">
 	<c:set var="position" value="todos" />
 	<%@ include file="nav.jsp" %>
@@ -191,10 +192,10 @@
    				</div>
  			</div>
 		</div>
-	</div>
-	
+	</div>	
 	<%@ include file="footer.jsp" %>	
 </div>
+</fmt:bundle>
 <script>
 	function refreshList(pageNo, event) {
 		if (event) {	// <a>태그를 클릭한 경우만 event가 undefined가 아니다.

@@ -12,7 +12,7 @@ import kr.co.jhta.util.pagination.Pagination;
 
 public class TodoService {
 
-	TodoDao todoDao = new TodoDao();
+	private TodoDao todoDao = TodoDao.getInstance();
 	
 	public List<TodoDto> getRecentTodos() throws Exception {
 		List<TodoDto> todos = todoDao.getRecentTodos();

@@ -1,14 +1,15 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- Header -->
 	<nav class="navbar navbar-expand-sm navbar-dark bg-dark mt-3 mb-3">
 		<ul class="navbar-nav mr-auto">
       		<li class="nav-item ${position eq 'home' ? 'active' : '' }">
-        		<a class="nav-link" href="/home.hta">홈</a>
+        		<a class="nav-link" href="/home.hta"><fmt:message key="menu.label.home" /></a>
       		</li>
       		<c:if test="${not empty loginUser }">
       		<li class="nav-item ${position eq 'todos' ? 'active' : '' }">
-        		<a class="nav-link" href="/todo/list.hta">할일 관리</a>
+        		<a class="nav-link" href="/todo/list.hta"><fmt:message key="menu.label.todo" /></a>
       		</li>
       		</c:if>
     	</ul>
@@ -16,10 +17,10 @@
     	<c:choose>
     		<c:when test="${empty loginUser }">
 	      		<li class="nav-item">
-	        		<a class="nav-link" href="#" onclick="openRegisterformModal(event)">회원가입</a>
+	        		<a class="nav-link" href="#" onclick="openRegisterformModal(event)"><fmt:message key="menu.label.signup" /></a>
 	      		</li>
 	      		<li class="nav-item">
-	        		<a class="nav-link" href="#" onclick="openLoginformModal(event)">로그인</a>
+	        		<a class="nav-link" href="#" onclick="openLoginformModal(event)"><fmt:message key="menu.label.signin" /></a>
 	      		</li>
       		</c:when>
       		<c:otherwise>

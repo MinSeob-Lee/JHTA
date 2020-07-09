@@ -15,6 +15,12 @@ import com.simple.util.QueryUtil;
 // todo.getRecentTodos=
 public class TodoDao {
 
+	private static TodoDao self = new TodoDao();	// 정적변수 self에 TodoDao객체를 담아둔다.
+	private TodoDao() {}							// 생성자의 외부 접근을 차단한다.
+	public static TodoDao getInstance() {			// 미리 생성된 TodoDao객체를 제공하는 기능이다.
+		return self;
+	}
+	
 	public List<TodoDto> getRecentTodos() throws SQLException {
 		List<TodoDto> todos = new ArrayList<TodoDto>();
 		Connection connection = ConnectionUtil.getConnection();

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>일정관리 애플리케이션</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<!-- 내비게이션 바 -->
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark mt-3 mb-3">
+  		<a class="navbar-brand" href="#" id="link-home">홈</a>
+  
+  		<ul class="navbar-nav">
+    		<li class="nav-item"><a class="nav-link" href="#" id="link-my-todos">나의 일정</a></li>
+    		<li class="nav-item"><a class="nav-link" href="#" id="link-register">회원가입</a></li>
+    		<li class="nav-item"><a class="nav-link" href="#" id="link-login">로그인</a></li>
+    		<li class="nav-item"><a class="nav-link" href="#" id="link-logout">로그아웃</a></li>
+  		</ul>
+	</nav>
+	
+	<!-- 홈 컨텐츠 -->
+	<div class="row"  id="row-home" >
+		<div class="col-12">
+			<div class="jumbotron">
+				<h1>나의 일정관리 애플리케이션</h1>
+				<p>개인의 일정관리를 지원하는 애플리케이션 입니다.</p>
+				<p>회원가입 및 로그인 후 서비스를 사용할 수 있습니다.</p>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 나의 일정 목록 -->
+	<div class="row" id="row-my-todos" >
+		<div class="col-12">
+			<div class="card card-primary">
+				<div class="card-header">
+					나의 일정 리스트
+					<button class="btn btn-success btn-sm float-right" id="btn-add-todo-form" >새 일정</button>
+				</div>
+				<div class="card-body">
+					<table class="table" id="table-my-todos" >
+						<colgroup>
+							<col width="60%">
+							<col width="15%">
+							<col width="15%">
+							<col width="10%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>제목</th>
+								<th>처리상태</th>
+								<th>예정일</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>연습입니다.</td>
+								<td>처리예정</td>
+								<td>2020-07-23</td>
+								<td><button class="btn btn-info btn-sm" data-todo-no="1">상세정보</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 나의 일정목록 끝 -->
+	
+	<!-- 새 일정 등록 모달창  -->
+	<div class="modal" id="modal-todo-form">
+		<div class="modal-dialog modal-lg">
+		<form method="post" action="add.hta">
+ 			<div class="modal-content">
+   				<div class="modal-header">
+     				<h4 class="modal-title">새 일정 등록폼</h4>
+     				<button type="button" class="close" data-dismiss="modal">&times;</button>
+   				</div>
+   				<div class="modal-body">
+     				<div class="row">
+     					<div class="col-12">
+     						<div class="card">
+     							<div class="card-body">
+     								<div class="form-group">
+     									<label>제목</label>
+     									<input type="text" class="form-control" name="title" />
+     								</div>
+     								<div class="form-group">
+     									<label>처리 예정일</label>
+     									<input type="date" class="form-control" name="day" />
+     								</div>
+     								<div class="form-group">
+     									<label>내용</label>
+     									<textarea rows="3" class="form-control" name="content"></textarea>
+     								</div>
+     							</div>
+     						</div>
+     					</div>
+     				</div>
+   				</div>
+   				<div class="modal-footer">
+     				<button type="button" class="btn btn-success btn-sm" id="btn-add-todo">등록</button>
+     				<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">닫기</button>
+   				</div>
+ 			</div>
+ 		</form>
+		</div>
+	</div>
+	<!-- 새 일정등록 모달창 끝 -->
+	
+	<!-- 모달 상세정보 모달 창  -->
+	<div class="modal" id="modal-todo-detail">
+		<div class="modal-dialog modal-lg">
+ 			<div class="modal-content">
+   				<div class="modal-header">
+     				<h4 class="modal-title">상세 정보</h4>
+     				<button type="button" class="close" data-dismiss="modal">&times;</button>
+   				</div>
+   				<div class="modal-body">
+     				<div class="row">
+     					<div class="col-12">
+     						<table class="table table-bordered table-sm">
+     							<colgroup>
+     								<col width="15%">
+     								<col width="35%">
+     								<col width="15%">
+     								<col width="35%">
+     							</colgroup>
+     							<tbody>
+     								<tr>
+     									<th>제목</th>
+     									<td colspan="3" id="todo-title"></td>
+     								</tr>
+     								<tr>
+     									<th>작성자</th>
+     									<td id="todo-user"></td>
+     									<th>예정일</th>
+     									<td id="todo-day"></td>
+     								</tr>
+     								<tr>
+     									<th>상태</th>
+     									<td id="todo-status"></td>
+     									<th>처리완료일</th>
+     									<td id="todo-completed-date"></td>
+     								</tr>
+     								<tr>
+     									<th style="vertical-align: middle;">내용</th>
+     									<td colspan="3"><small id="todo-content"></small></td>
+     								</tr>
+     							</tbody>
+     						</table>
+     					</div>
+     				</div>
+   				</div>
+   				<div class="modal-footer">
+     				<button type="button" class="btn btn-success btn-sm"   id="btn-completed-todo">처리완료</button>
+     				<button type="button" class="btn btn-info btn-sm"      id="btn-running-todo">처리중</button>
+     				<button type="button" class="btn btn-secondary btn-sm" id="btn-wait-todo">보류</button>
+     				<button type="button" class="btn btn-danger btn-sm"    id="btn-del-todo">삭제</button>
+     				<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">닫기</button>
+   				</div>
+ 			</div>
+		</div>
+	</div>
+	<!-- 모달 상세정보 모달 창  -->
+	
+	<!-- 회원가입 모달창  -->
+	<div class="modal" id="modal-register-form">
+		<div class="modal-dialog">
+			<form>
+	 			<div class="modal-content">
+	   				<div class="modal-header">
+	     				<h4 class="modal-title">회원가입 입력폼</h4>
+	     				<button type="button" class="close" data-dismiss="modal">&times;</button>
+	   				</div>
+	   				<div class="modal-body">
+	   					<div class="row" id="row-register-success" >
+	   						<div class="col-12">
+	   							<div class="alert alert-success">
+	   								<strong>성공</strong> 회원가입이 완료되었습니다.
+	   							</div>
+	   						</div>
+	   					</div>
+	   					<div class="row" id="row-register-fail" >
+	   						<div class="col-12">
+	   							<div class="alert alert-danger">
+	   								<strong>실패</strong> 회원가입이 완료되지 못했습니다.
+	   							</div>
+	   						</div>
+	   					</div>
+	     				<div class="row">
+	     					<div class="col-12">
+	     						<div class="card">
+	     							<div class="card-body">
+	     								<div class="form-group">
+	     									<label>이름</label>
+	     									<input type="text" class="form-control" name="name" />
+	     								</div>
+	     								<div class="form-group">
+	     									<label>아이디</label>
+	     									<input type="text" class="form-control" name="id" />
+	     								</div>
+	     								<div class="form-group">
+	     									<label>비밀번호</label>
+	     									<input type="password" class="form-control" name="pwd" />
+	     								</div>
+	     								<div class="form-group">
+	     									<label>이메일</label>
+	     									<input type="text" class="form-control" name="email" />
+	     								</div>
+	     							</div>
+	     						</div>
+	     					</div>
+	     				</div>
+	   				</div>
+	   				<div class="modal-footer">
+	     				<button type="button" class="btn btn-outline-success btn-sm" id="btn-register-user">회원가입</button>
+	     				<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">닫기</button>
+	   				</div>
+	 			</div>
+ 			</form>
+		</div>
+	</div>
+	<!-- 회원가입 모달창 끝  -->
+	
+	<!-- 로그인 모달창  -->
+	<div class="modal" id="modal-login-form">
+		<div class="modal-dialog">
+			<form method="post" action="login.hta">
+	 			<div class="modal-content">
+	   				<div class="modal-header">
+	     				<h4 class="modal-title">로그인 입력폼</h4>
+	     				<button type="button" class="close" data-dismiss="modal">&times;</button>
+	   				</div>
+	   				<div class="modal-body">
+	   					<div id="row-login-fail"  class="row">
+	   						<div class="col-12">
+	   							<div class="alert alert-danger">
+	   								<strong>실패</strong> 아이디 혹은 비밀번호가 일치하지 않습니다.
+	   							</div>
+	   						</div>
+	   					</div>
+	     				<div class="row">
+	     					<div class="col-12">
+	     						<div class="card">
+	     							<div class="card-body">
+	     								<div class="form-group">
+	     									<label>아이디</label>
+	     									<input type="text" class="form-control" name="userid" />
+	     								</div>
+	     								<div class="form-group">
+	     									<label>비밀번호</label>
+	     									<input type="password" class="form-control" name="userpwd" />
+	     								</div>
+	     							</div>
+	     						</div>
+	     					</div>
+	     				</div>
+	   				</div>
+	   				<div class="modal-footer">
+	     				<button type="button" class="btn btn-outline-success btn-sm" id="btn-login-user">로그인</button>
+	     				<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">닫기</button>
+	   				</div>
+	 			</div>
+ 			</form>
+		</div>
+	</div>
+	<!-- 로그인 모달창 끝 -->
+</div>
+<script type="text/javascript">
+$(function() {
+	// 초기화작업을 실행한다.
+	init();
+	
+	// 홈 화면을 클릭했을 때
+	$("#link-home").click(function() {
+		init()
+		return false;
+	});
+	
+	// 나의 일정을 클릭했을 때
+	$("#link-my-todos").click(function() {
+		// 나의 일정을 active 시키고, 다른 메뉴는 active를 삭제한다.
+		$(this).parents(".nav-item").addClass("active").siblings().removeClass("active");
+		// 일정정보를 추가할 table의 tbody를 선택한다.
+		var $tbody = $("#table-my-todos tbody").empty();
+		
+		// 나의 일정을 서버에서 조회한다.
+		$.get("mytodos.hta", function(res) {
+			if (res.status == "fail") {
+				init();
+			} else {
+				// 일정정보를 가져온다.
+				var todos = res.todos;
+				
+				// 등록된 일정이 0개 인 경우
+				if (todos.length == 0) {
+					var tr = "<tr>";
+					tr += "<td colspan='4' class='text-center'>등록된 일정이 없습니다.</td>";
+					tr += "</tr>";
+					$tbody.append(tr);
+				} else {
+					// 일정정보가 저장된 배열에서 일정정보를 하나씩 가져와서 tbody에 추가한다.
+					$.each(todos, function(index, todo) {
+						var tr = "<tr>";
+						tr += "<td>"+todo.title+"</td>";
+						tr += "<td>"+todo.status+"</td>";
+						tr += "<td>"+todo.day+"</td>";
+						tr += "</tr>";
+						
+						$tbody.append(tr);
+					});					
+				}
+			}
+		})
+		
+		$("#row-home").hide();		
+		$("#row-my-todos").show();
+		return false;
+	});
+	
+	// 회원가입 모달창 표시하기
+	$("#link-register").click(function() {
+		// 회원가입을 active 시키고, 다른 메뉴는 active를 삭제한다.
+		$(this).parents(".nav-item").addClass("active").siblings().removeClass("active");
+		
+		// 에러메세지를 숨기고, 입력필드 초기화하고,  모달창을 표시한다.
+		$(".alert").parents(".row").hide();
+		clearInputField();
+		$("#modal-register-form").modal("show");
+		
+		return false;
+	});
+	
+	// 회원가입 버튼을 클릭했을 때
+	$("#btn-register-user").click(function() {
+		// 입력필드값을 읽어온다.
+		var username = $(":input[name=name]").val();
+		var userid = $(":input[name=id]").val();
+		var userpwd = $(":input[name=pwd]").val();
+		var useremail = $(":input[name=email]").val();
+		
+		// 회원가입정보를 서버로 전송하기
+		$.post("register.hta", {name:username, id:userid, pwd:userpwd, email:useremail}, function(res) {
+			if (res.status == 'success') {
+				// 성공메세지를 표시한다.
+				$("#row-register-success").show();
+				$("#row-register-fail").hide();
+			} else {
+				// 에러메세지를 표시한다.
+				$("#row-register-success").hide();
+				$("#row-register-fail").show();
+			}
+		})		
+	})
+	
+	// 로그인 모달창 표시하기
+	$("#link-login").click(function() {
+		// 에러메세지를 숨기고, 입력필드 초기화하고,  모달창을 표시한다.
+		$(".alert").parents(".row").hide();
+		clearInputField();
+		$("#modal-login-form").modal("show");
+		
+		return false;
+	});
+	
+	// 로그인버튼을 클릭했을 때
+	$("#btn-login-user").click(function() {
+		// 입력필드값을 읽어온다.
+		var userid = $(":input[name=userid]").val();
+		var userpwd = $(":input[name=userpwd]").val();
+		
+		// 로그인 정보를 서버로 전송한다.
+		$.post("login.hta", {id:userid, pwd:userpwd}, function(res) {
+			if (res.status == 'success') {
+				// 성공메세지를 표시한다.
+				$("#modal-login-form").modal("hide");
+				init();
+			} else {
+				// 에러메세지를 표시한다.
+				$("#row-login-fail").show();
+			}
+		})
+	});
+	
+	// 로그아웃 링크를 클릭할 때 실행된다.
+	$("#link-logout").click(function() {
+		// 서버에 로그아웃 요청을 보낸다.
+		$.get("logout.hta", function(res) {
+			// 페이지를 초기화한다.
+			init();
+		});
+		return false;
+	})
+	
+	// 새 일정등록 모달창 표시하기
+	$("#btn-add-todo-form").click(function() {
+		$("#modal-todo-form").modal("show")
+	});
+	
+	
+	
+	// 일정 상세정보 모달창 표시하기
+	$("#table-my-todos tbody .btn-info").click(function() {
+		$("#modal-todo-detail").modal("show")
+	})
+	
+	// 화면이 리로딩될 때 마다 로그인여부를 조회한다.
+	function init() {
+		$.get('home.hta', function(res) {
+			if (res.status == "loginBefore") {
+				changeLoginBeforeNavbar();
+			} else if (res.status == "loginAfter"){
+				changeLoginAfterNavbar();
+			} else {
+				changeLoginBeforeNavbar();
+			}
+		});
+		
+		$(".nav-item").removeClass("active");
+		$(".alert").parents(".row").hide();
+		
+		$("#row-home").show();
+		$("#row-my-todos").hide();
+	}
+	
+	// 로그아웃된 상태의 navbar 상태로 변경한다.
+	function changeLoginBeforeNavbar() {
+		$("#link-my-todos").hide();
+		$("#link-register").show();
+		$("#link-login").show();
+		$("#link-logout").hide();
+	}
+
+	// 로그인된 상태의 navbar 상태로 변경한다.
+	function changeLoginAfterNavbar() {
+		$("#link-my-todos").show();
+		$("#link-register").hide();
+		$("#link-login").hide();
+		$("#link-logout").show();
+	}
+	
+	// 모든 입력필드의 값을 지운다.
+	function clearInputField() {
+		$(":input").val("");
+	}
+	
+})
+</script>
+</body>
+</html>

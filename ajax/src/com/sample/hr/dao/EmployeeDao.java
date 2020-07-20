@@ -60,4 +60,28 @@ public class EmployeeDao {
 		
 		return employees;
 	}
+	
+	public Employee getEmployeeById(int employeeId) throws SQLException {
+		Employee employee = new Employee();
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("hr.getEmployeeById"));
+		pstmt.setInt(1, employeeId);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			employee.setId(rs.getInt("employee_id"));
+			employee.setFirstName(rs.getString("first_name"));
+			employee.setLastName(rs.getString("last_name"));
+			employee.setPhoneNumber(rs.getString("phone_number"));
+			employee.setJobId(rs.getString("job_id"));
+			employee.setSalary(rs.getDouble("salary"));
+			employee.setHireDate(rs.getDate("hire_date"));
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return employee;
+	}
 }

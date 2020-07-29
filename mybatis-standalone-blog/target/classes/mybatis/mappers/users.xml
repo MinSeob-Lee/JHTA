@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user">
+	<select id="getUserById" parameterType="string" resultType="kr.co.jhta.vo.User">
+		select
+			user_id as id,
+			user_name as name,
+			user_password as password,
+			user_email as email,
+			user_created_date
+		from
+			spring_users
+		where
+			spring_user = #{value}
+	</select>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper>
+	<insert id="insertComment" parameterType="kr.co.jhta.vo.Comment">
+		insert into spring_blog_comments
+		(comment_no, comment_writer, comment_content, blog_no, comment_create_date)
+		values
+		(#{no}, #{writer}, #{content}, #{blog}, sysdate)
+	</insert>
+	
+	<select id="getCommentsByBlogNo" parameterType="int" re
+	sultType="kr.co.jhta.vo.Comment">
+		select
+			comment_no as no,
+			comment_writer as writer,
+			comment_content as content,
+			blog_no as blogNo,
+			comment_create_date as createdDate
+		from spring_blog_comments
+		where comment_no = #{value}
+	</select>
+</mapper>

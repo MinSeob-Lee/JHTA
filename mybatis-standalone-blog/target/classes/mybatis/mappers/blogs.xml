@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper>
+	<insert id="insertBlog" parameterType="kr.co.jhta.vo.Blog">
+		insert into spring_blogs
+		(blog_no, blog_title, blog_writer, blog_content, blog_likes, blog_comment_counts, blog_create_date)
+		values
+		(#{no}, #{title}, #{writer}, #{content}, #{likes}, #{comment}, #{likes}, #{commentCounts}, sysdate})
+	</insert>
+	
+	<select id="getAllBlogs" resultType="kr.co.jhta.dto.BlogDto">
+		select
+			A.blog_no as no,
+			A.blog_title as title,
+			A.blog_writer as writer,
+			A.blog_content as content,
+			A.blog_likes as likes,
+			A.blog_comment_counts as commentCounts,
+			B.user_id as id
+		from spring_blogs A, spring_users B
+		where A.blog_writer = B.user_id
+		order by A.blog_no
+	</select>
+	
+	<select id="getBlogByNo" parameterType="int" resultType="kr.co.jhta.dto.BlogDto">
+		select
+			select
+			A.blog_no as no,
+			A.blog_title as title,
+			A.blog_writer as writer,
+			A.blog_content as content,
+			A.blog_likes as likes,
+			A.blog_comment_counts as commentCounts,
+			B.user_id as id
+		from spring_blogs A, spring_users B
+		where A.blog_writer = B.user_id
+		and A.blog_no = #{value}
+	</select>
+	
+	<update id="updateBlog" parameterType="kr.co.jhta.vo.Blog">
+		update spring_blogs
+		set
+			blog_title = #{title},
+			blog_content = #{content}
+		where blog_no = #{no}
+	</update>
+</mapper>
